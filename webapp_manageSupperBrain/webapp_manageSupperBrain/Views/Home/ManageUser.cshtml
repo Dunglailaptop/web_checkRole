@@ -1,0 +1,267 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        .green-bar {
+            background-color: #4CAF50; /* Màu xanh */
+            width: 100%; /* Độ rộng của thanh */
+            height: 20px; /* Chiều cao của thanh */
+        }
+    </style>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/c76b3bc017.js" crossorigin="anonymous"></script>
+
+    <title></title>
+    <style>
+        .row {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="row wrapper">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <input type="text" id="searchtxt" name="searchtxt" class="input-sm form-control" placeholder="Tên">
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-warning" type="button" id="search">
+                        Tìm kiếm
+                    </button>
+                </span>
+                <span id="statusloading" style="position:absolute"></span>
+            </div>
+        </div>
+    </div>
+    <div>
+
+        <table class="table dataTable" >
+
+            <tr>
+                <th>
+                    STT
+                </th>
+                <th>
+                    USER
+                </th>
+                <th>
+                    HỌ TÊN
+                </th>
+                <th>
+                    NGÀY CẬP NHẬT
+                </th>
+                <th>
+                    TRẠNG THÁI
+                </th>
+                <th>
+                    THỜI HẠN
+                </th>
+                <th>
+                    CHỨC NĂNG
+                </th>
+            </tr>
+            <tbody class ="tableBody" id="tableBody">
+                @*@{
+                    int stt = 1; // Khởi tạo biến đếm
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @stt
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateUpdate)
+                        </td>
+                        <td>
+                            @if (item.status_working == 0)
+                            {
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width:100%">ĐANG HOẠT ĐỘNG</div>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.status_working)
+                            }
+
+                        </td>
+                        <td>
+                            @(((DateTime)item.term).ToString("dd/MM/yyyy"))
+                        </td>
+                        <td>
+
+                            <input class="idInput" value="@item.idUserAccount" hidden />
+                            <button class="confirmButton btn btn-warning" data-toggle="modal" data-target="#exampleModal">Phân quyền</button>
+
+
+
+                            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-edit"></span></button>
+                            <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                        </td>
+                    </tr>
+                    stt++;
+                }*@
+
+            </tbody>
+
+
+        </table>
+
+        <div style="" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content" style="width:800px;">
+                    <div class="modal-header">
+                        <h5 class="modal-fullscreen" id="exampleModalLabel">Phân quyền</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="vehicleForm">
+                            <table cellpadding="0" cellspacing="0" border="0" class="table" id="datatable">
+                                <colgroup>
+                                    <col class="con0">
+                                    <col class="con1">
+                                    <col class="con0">
+                                    <col class="con1">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2" style="width:400px">Chức năng</th>
+                                        <th colspan="4" style="text-align:center"> Quyền cho phép</th>
+                                    </tr>
+                                    <tr>
+
+                                        <th class="head1" style="text-align:left"> xem</th>
+                                        <th class="head0" style="text-align:left">  <i>Thêm </i></th>
+                                        <th class="head0" style="text-align:left"> <i>Sửa</i></th>
+                                        <th class="head0" style="text-align:left">  <i>Xóa</i></th>
+
+                                    </tr>
+                                </thead>
+
+
+
+                                @*@{
+
+                                        var dataRole = TempData["data"] as List<webapp_manageSupperBrain.Models.Innerjoin>;
+                                    }
+
+                                    @if (dataRole != null)
+                                    {
+                                        foreach (var role in dataRole)
+                                        {
+                                            <tr>
+                                                <td><i class="fa fa-barcode"></i><b> @role.Name</b></td>
+                                                <td style="text-align: left;padding-left: 25px;"></td>
+                                                <td style="text-align: left;padding-left: 25px;">
+                                                    <a href="javascript:Checkall('3',1)"><i class="fa fa-check"></i></a>
+                                                    <input type="hidden" id="checkall1_3" value="1">
+                                                </td>
+                                            </tr>
+
+                                            foreach (var permission in role.Permissions)
+                                            {
+                                                <tr class="permission">
+                                                    <td>+ @permission.Name<div class="blur_color">@permission.code</div></td>
+                                                    <td><input class="IdPermission" type="number" value="@permission.id" hidden></td>
+                                                    <td>
+                                                        <input class="IsRead" type="checkbox" onchange="updateCheckboxValue(this)">
+                                                    </td>
+                                                    <td>
+                                                        <input class="IsCreate" type="checkbox" onchange="updateCheckboxValue(this)">
+                                                    </td>
+                                                    <td>
+                                                        <input class="IsEdit" type="checkbox" onchange="updateCheckboxValue(this)">
+                                                    </td>
+                                                    <td>
+                                                        <input class="IsDelete" type="checkbox" onchange="updateCheckboxValue(this)">
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }*@
+                                <tbody></tbody>
+
+
+
+                            </table>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" id="submitButton" value="Submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        function updateCheckboxValue(checkbox) {
+            if (checkbox.checked) {
+                checkbox.value = 1;
+            } else {
+                checkbox.value = 0;
+            }
+
+        }
+
+
+
+        //$('#search').click(function (e) {
+        //    $.ajax({
+        //        url: '/Home/search',
+        //        type: 'GET',
+        //        data: {
+        //            keyword: $('#searchtxt').val() // Specify the parameter name
+        //        },
+        //        dataType: 'json',
+        //        success: function (data) {
+        //            // Clear existing table rows
+        //            $('#table-list-user tbody').empty();
+
+        //            // Loop through each item in the received data and append a new row to the table
+        //            data.each(item) {
+        //                var newRow = '<tr>' +
+        //                    '<td>' + item.Name + '</td>' +
+        //                    '<td>' + item.FullName + '</td>' +
+        //                    '<td>' + item.DateUpdate + '</td>' +
+        //                    '<td>' + (item.StatusWorking == 0 ? 'ĐANG HOẠT ĐỘNG' : item.StatusWorking) + '</td>' +
+        //                    '<td>' + item.Term + '</td>' +
+        //                    '<td>' + item.IdUserAccount + '</td>' +
+        //                    '</tr>';
+        //                $('#tbody').append(newRow);
+        //            });
+        //        },
+        //        error: function () {
+        //            console.log('Error occurred while fetching data.');
+        //        }
+        //    });
+        //});
+
+
+    </script>
+    <script src="~/Controllers/js/UserController.js"></script>
+</body>
+</html>

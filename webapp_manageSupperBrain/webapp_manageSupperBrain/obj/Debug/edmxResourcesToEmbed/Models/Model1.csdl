@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="webapp_manageSupperBrainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Enable" Type="Boolean" />
+    <Property Name="DisplayOrder" Type="Int32" />
+    <Property Name="IdPermissionCategory" Type="Int32" />
+    <NavigationProperty Name="PermissionCategory" Relationship="Self.FK__Permissio__IdPer__4BAC3F29" FromRole="Permission" ToRole="PermissionCategory" />
+    <NavigationProperty Name="UserPermissions" Relationship="Self.FK__UserPermi__IdPer__4E88ABD4" FromRole="Permission" ToRole="UserPermission" />
+  </EntityType>
+  <EntityType Name="PermissionCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Enable" Type="Boolean" />
+    <Property Name="DisplayOrder" Type="Int32" />
+    <NavigationProperty Name="Permissions" Relationship="Self.FK__Permissio__IdPer__4BAC3F29" FromRole="PermissionCategory" ToRole="Permission" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="UserAccount">
+    <Key>
+      <PropertyRef Name="idUserAccount" />
+    </Key>
+    <Property Name="idUserAccount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdate" Type="DateTime" Precision="3" />
+    <Property Name="status_working" Type="Int32" />
+    <Property Name="term" Type="DateTime" Precision="3" />
+    <Property Name="passwords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="emails" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserPermissions" Relationship="Self.kp_UserPermission_UserAccount" FromRole="UserAccount" ToRole="UserPermission" />
+  </EntityType>
+  <EntityType Name="UserPermission">
+    <Key>
+      <PropertyRef Name="IdUser" />
+      <PropertyRef Name="IdPermission" />
+    </Key>
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <Property Name="IdPermission" Type="Int32" Nullable="false" />
+    <Property Name="IsRead" Type="Boolean" />
+    <Property Name="IsCreate" Type="Boolean" />
+    <Property Name="IsEdit" Type="Boolean" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <NavigationProperty Name="Permission" Relationship="Self.FK__UserPermi__IdPer__4E88ABD4" FromRole="UserPermission" ToRole="Permission" />
+    <NavigationProperty Name="UserAccount" Relationship="Self.kp_UserPermission_UserAccount" FromRole="UserPermission" ToRole="UserAccount" />
+  </EntityType>
+  <Association Name="FK__Permissio__IdPer__4BAC3F29">
+    <End Role="PermissionCategory" Type="Self.PermissionCategory" Multiplicity="0..1" />
+    <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PermissionCategory">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Permission">
+        <PropertyRef Name="IdPermissionCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserPermi__IdPer__4E88ABD4">
+    <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+    <End Role="UserPermission" Type="Self.UserPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="UserPermission">
+        <PropertyRef Name="IdPermission" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="kp_UserPermission_UserAccount">
+    <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+    <End Role="UserPermission" Type="Self.UserPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserAccount">
+        <PropertyRef Name="idUserAccount" />
+      </Principal>
+      <Dependent Role="UserPermission">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="webapp_manageSupperBrainEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Permissions" EntityType="Self.Permission" />
+    <EntitySet Name="PermissionCategories" EntityType="Self.PermissionCategory" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
+    <EntitySet Name="UserPermissions" EntityType="Self.UserPermission" />
+    <AssociationSet Name="FK__Permissio__IdPer__4BAC3F29" Association="Self.FK__Permissio__IdPer__4BAC3F29">
+      <End Role="PermissionCategory" EntitySet="PermissionCategories" />
+      <End Role="Permission" EntitySet="Permissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserPermi__IdPer__4E88ABD4" Association="Self.FK__UserPermi__IdPer__4E88ABD4">
+      <End Role="Permission" EntitySet="Permissions" />
+      <End Role="UserPermission" EntitySet="UserPermissions" />
+    </AssociationSet>
+    <AssociationSet Name="kp_UserPermission_UserAccount" Association="Self.kp_UserPermission_UserAccount">
+      <End Role="UserAccount" EntitySet="UserAccounts" />
+      <End Role="UserPermission" EntitySet="UserPermissions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

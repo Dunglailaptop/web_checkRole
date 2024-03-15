@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ModelsWeb">
+  <DataContextMoniker Name="/ModelsWebDataContext" />
+  <nestedChildShapes>
+    <classShape Id="e0d78406-21b3-4906-bedd-d57887588d56" absoluteBounds="1.75, 1.875, 2, 1.9631982421875">
+      <DataClassMoniker Name="/ModelsWebDataContext/Permission" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e88968dd-a151-406d-a63b-775d361eded3" absoluteBounds="1.7650000000000001, 2.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="db3692e8-44b7-4654-b38a-c34e82ed8a94" absoluteBounds="8.5, 4.125, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/ModelsWebDataContext/PermissionCategory" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d982ef1f-93ec-4ac1-9e53-f1dd16a45213" absoluteBounds="8.515, 4.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b73eb9ed-e4ee-4eb7-bc63-8a7809d15e61" absoluteBounds="6.25, 1.625, 2, 1.9631982421875003">
+      <DataClassMoniker Name="/ModelsWebDataContext/UserPermission" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f7fec1d7-d10b-4489-8086-e7c90e164ca2" absoluteBounds="6.265, 2.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.5 : 4.34375); (3.46875 : 4.34375); (3.46875 : 3.8381982421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ModelsWebDataContext/PermissionCategory/PermissionCategory_Permission" />
+      <nodes>
+        <classShapeMoniker Id="db3692e8-44b7-4654-b38a-c34e82ed8a94" />
+        <classShapeMoniker Id="e0d78406-21b3-4906-bedd-d57887588d56" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.75 : 2.73159912109375); (6.25 : 2.73159912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/ModelsWebDataContext/Permission/Permission_UserPermission" />
+      <nodes>
+        <classShapeMoniker Id="e0d78406-21b3-4906-bedd-d57887588d56" />
+        <classShapeMoniker Id="b73eb9ed-e4ee-4eb7-bc63-8a7809d15e61" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="f966d4be-c15d-417e-9ada-63ae711ca1e1" absoluteBounds="1.125, 4.625, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/ModelsWebDataContext/UserAccount" />
+      <nestedChildShapes>
+        <elementListCompartment Id="009a9a7c-77c6-47d5-ab4b-c1980ea6ff04" absoluteBounds="1.1400000000000001, 5.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.40625 : 4.625); (1.40625 : 1.71875); (6.25 : 1.71875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ModelsWebDataContext/UserAccount/UserAccount_UserPermission" />
+      <nodes>
+        <classShapeMoniker Id="f966d4be-c15d-417e-9ada-63ae711ca1e1" />
+        <classShapeMoniker Id="b73eb9ed-e4ee-4eb7-bc63-8a7809d15e61" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

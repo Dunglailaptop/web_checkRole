@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="webapp_manageSupperBrain" Class="ModelsWebDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Permission" Member="Permissions">
+    <Type Name="Permission">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Enable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DisplayOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdPermissionCategory" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Permission_UserPermission" Member="UserPermissions" ThisKey="id" OtherKey="IdPermission" Type="UserPermission" />
+      <Association Name="PermissionCategory_Permission" Member="PermissionCategory" ThisKey="IdPermissionCategory" OtherKey="Id" Type="PermissionCategory" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PermissionCategory" Member="PermissionCategories">
+    <Type Name="PermissionCategory">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Enable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DisplayOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PermissionCategory_Permission" Member="Permissions" ThisKey="Id" OtherKey="IdPermissionCategory" Type="Permission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserPermission" Member="UserPermissions">
+    <Type Name="UserPermission">
+      <Column Name="IdUser" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdPermission" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IsRead" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsCreate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsEdit" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IsDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Permission_UserPermission" Member="Permission" ThisKey="IdPermission" OtherKey="id" Type="Permission" IsForeignKey="true" />
+      <Association Name="UserAccount_UserPermission" Member="UserAccount" ThisKey="IdUser" OtherKey="idUserAccount" Type="UserAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserAccount" Member="UserAccounts">
+    <Type Name="UserAccount">
+      <Column Name="idUserAccount" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="DateUpdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="status_working" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="term" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="passwords" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="emails" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="UserAccount_UserPermission" Member="UserPermissions" ThisKey="idUserAccount" OtherKey="IdUser" Type="UserPermission" />
+    </Type>
+  </Table>
+</Database>
